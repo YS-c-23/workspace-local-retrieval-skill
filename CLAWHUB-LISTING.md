@@ -2,7 +2,7 @@
 
 ## Short description
 
-A local-first retrieval architecture skill for OpenClaw workspaces with explicit corpus boundaries, deny-by-default agent access, and a prerequisite gate that blocks execution until required runtime dependencies are ready.
+A boundary-first local retrieval architecture skill for OpenClaw workspaces with explicit corpus boundaries, deny-by-default agent access, a prerequisite gate for runtime readiness, and explicit validation rules for maturity claims.
 
 ## Medium description
 
@@ -15,9 +15,10 @@ It helps you:
 - keep a stable retrieval interface for callers
 - add a prerequisite gate before bootstrap, indexing, embeddings, or search
 - stop cleanly when required dependencies are missing
-- create an OS-aware installation plan before execution when environment prep is needed
+- classify outcomes honestly as architecture-only, minimally runnable, or fully validated
+- avoid overclaiming maturity before a real closed loop is tested
 
-This skill is especially useful for multi-agent setups where retrieval quality depends not just on ranking, but on boundary design, access control, and operational discipline.
+This skill is especially useful for multi-agent setups where retrieval quality depends not just on ranking, but on boundary design, access control, maintenance discipline, and validation honesty.
 
 ## Long description
 
@@ -29,7 +30,7 @@ It is designed for users who want retrieval to be:
 - privacy-aware
 - agent-scoped
 - maintainable over time
-- honest about runtime readiness
+- honest about runtime readiness and maturity
 
 Instead of encouraging naive “index everything” patterns, the skill focuses on architectural quality:
 - personal memory and workspace retrieval are treated as separate layers
@@ -38,12 +39,17 @@ Instead of encouraging naive “index everything” patterns, the skill focuses 
 - retrieval callers use one stable wrapper contract
 - maintenance includes freshness checks and selective refresh patterns
 - execution is gated by prerequisite checks rather than assumption
+- maturity claims are constrained by an explicit validation contract
 
 The skill includes:
 - a workflow-driven `SKILL.md`
 - sanitized JSON starter templates
-- reference docs for privacy boundaries, agent scoping, interface contracts, maintenance patterns, runtime dependencies, and preflight/install policy
+- reference docs for privacy boundaries, agent scoping, interface contracts, maintenance patterns, runtime dependencies, validation contract, anti-overclaim policy, and preflight/install policy
 - a conservative bootstrap script that generates starter config without indexing user data automatically
 - a runnable prerequisite check script
+
+Current honest framing:
+- this repo is an architecture skill and starter kit
+- it should not be marketed as a complete retrieval product unless a real closed loop and validation suite are present and passing
 
 Use this skill when you want a retrieval architecture that reflects real multi-agent operational constraints, not just a quick demo.

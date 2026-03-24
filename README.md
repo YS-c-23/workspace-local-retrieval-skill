@@ -1,8 +1,8 @@
 # workspace-local-retrieval
 
-A local-first retrieval architecture skill for OpenClaw workspaces.
+A boundary-first local retrieval architecture skill for OpenClaw workspaces.
 
-This skill packages a reusable pattern for building retrieval in multi-agent environments with stronger boundary discipline, clearer agent scoping, safer maintenance defaults, and a **prerequisite gate** that blocks execution until required runtime dependencies are actually ready.
+This repository packages a reusable pattern for building retrieval in multi-agent environments with stronger boundary discipline, clearer agent scoping, safer maintenance defaults, a **prerequisite gate** that blocks execution until required runtime dependencies are actually ready, and explicit rules for honest maturity claims.
 
 ## Why this exists
 
@@ -15,6 +15,7 @@ That works for quick demos, but it breaks down in longer-running workspaces. The
 - noisy recall from over-broad indexing
 - refresh workflows that default to blind full rebuilds
 - runtime dependencies discovered too late, after execution has already started failing
+- maturity claims that outrun what has actually been tested
 
 `workspace-local-retrieval` packages a different default.
 
@@ -26,8 +27,9 @@ That works for quick demos, but it breaks down in longer-running workspaces. The
 - **Keep one stable retrieval interface for callers**
 - **Treat maintenance and selective refresh as part of the design**
 - **Gate execution on prerequisite checks**
+- **Classify maturity honestly using explicit validation rules**
 
-The emphasis is not only retrieval quality. It is retrieval architecture and runtime discipline.
+The emphasis is not only retrieval quality. It is retrieval architecture, runtime discipline, and validation honesty.
 
 ## What the skill includes
 
@@ -40,6 +42,8 @@ The emphasis is not only retrieval quality. It is retrieval architecture and run
   - maintenance patterns
   - dependency and platform guidance
   - preflight and install policy
+  - validation contract
+  - anti-overclaim guidance
   - design rationale
   - publish readiness
 - a conservative bootstrap script that generates starter config without ingesting private data automatically
@@ -62,8 +66,18 @@ This is not:
 - a turnkey enterprise retrieval platform
 - a benchmark package for ranking quality
 - a substitute for careful corpus design
+- a fully validated closed-loop retrieval system by default
 
 It is a reusable architectural pattern and starter kit.
+
+## Maturity labels
+
+Use these labels honestly:
+- **architecture-only**: boundaries, templates, and contracts exist, but no real retrieval loop has been proven
+- **minimally runnable**: a safe demo path can ingest a small corpus, build an index, and answer at least one query
+- **fully validated**: the minimal closed loop exists and the validation contract passes
+
+Do not call the repo `fully validated`, `end-to-end`, `production-ready`, or `plug-and-play` unless the actual evidence supports that claim.
 
 ## Repository contents
 
@@ -72,6 +86,7 @@ workspace-local-retrieval/
   SKILL.md
   references/
     agent-scoping.md
+    anti-overclaim.md
     dependencies-and-platforms.md
     design-rationale.md
     example-templates.md
@@ -82,6 +97,7 @@ workspace-local-retrieval/
     publish-readiness-checklist.md
     runtime-layout.md
     sanitized-demo.md
+    validation-contract.md
   scripts/
     bootstrap_workspace_retrieval.py
     check_retrieval_prereqs.py
@@ -99,7 +115,7 @@ workspace-local-retrieval/
 6. Keep personal memory and workspace retrieval as separate layers.
 7. Add a stable retrieval wrapper.
 8. Add freshness checks and selective refresh.
-9. Validate with a sanitized demo and smoke tests.
+9. Validate using the maturity labels and validation contract.
 
 ## Why the public version is sanitized
 
