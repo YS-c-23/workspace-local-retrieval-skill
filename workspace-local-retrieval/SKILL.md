@@ -1,6 +1,6 @@
 ---
 name: workspace-local-retrieval
-description: Build a boundary-first local retrieval architecture for an OpenClaw workspace with explicit corpus boundaries, deny-by-default agent access, separate personal-memory vs workspace-knowledge layers, stable agent-facing search interfaces, and validation-aware maintenance workflows. Use when a user wants to: (1) add local RAG without indexing everything, (2) separate personal memory from reusable workspace retrieval, (3) define agent-scoped access to different corpora, (4) package a retrieval system as a reusable skill rather than private glue code, (5) add explainable status / refresh workflows, or (6) turn a one-off local search setup into a safer multi-agent retrieval pattern with explicit validation gates.
+description: Design a local-first retrieval layer for OpenClaw workspaces with explicit corpus boundaries, deny-by-default agent access, separate personal-memory vs workspace-knowledge layers, stable agent-facing search interfaces, and validation-aware maintenance workflows. Use when a user wants to: (1) add local RAG without indexing everything, (2) separate personal memory from reusable workspace retrieval, (3) define agent-scoped access to different corpora, (4) package retrieval architecture as a reusable skill rather than private glue code, (5) add explainable status and refresh workflows, or (6) turn a one-off local search setup into a safer multi-agent retrieval pattern with explicit validation gates.
 ---
 
 # Workspace Local Retrieval

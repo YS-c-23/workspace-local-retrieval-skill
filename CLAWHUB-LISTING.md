@@ -2,54 +2,55 @@
 
 ## Short description
 
-A boundary-first local retrieval architecture skill for OpenClaw workspaces with explicit corpus boundaries, deny-by-default agent access, a prerequisite gate for runtime readiness, and explicit validation rules for maturity claims.
+Design a boundary-first local retrieval layer for OpenClaw workspaces with explicit corpus boundaries, deny-by-default agent access, and a validated minimal closed-loop demo.
 
 ## Medium description
 
-`workspace-local-retrieval` packages a reusable retrieval pattern for OpenClaw workspaces that need more than ad-hoc local RAG.
+`workspace-local-retrieval` packages a reusable retrieval architecture for OpenClaw workspaces that need more than ad-hoc local RAG.
 
 It helps you:
 - separate personal memory from workspace retrieval
 - design explicit corpora instead of indexing everything
 - scope retrieval access per agent
 - keep a stable retrieval interface for callers
-- add a prerequisite gate before bootstrap, indexing, embeddings, or search
+- add prerequisite gates before bootstrap, indexing, embeddings, or search
 - stop cleanly when required dependencies are missing
-- classify outcomes honestly as architecture-only, minimally runnable, or fully validated
-- avoid overclaiming maturity before a real closed loop is tested
+- validate a minimal closed loop with runnable smoke tests
+- make maturity claims honestly instead of overpromising
 
-This skill is especially useful for multi-agent setups where retrieval quality depends not just on ranking, but on boundary design, access control, maintenance discipline, and validation honesty.
+This skill is especially useful for multi-agent systems where retrieval quality depends on architecture, access control, maintenance discipline, and trust boundaries—not just ranking.
 
 ## Long description
 
-`workspace-local-retrieval` is a safety-conscious skill for building a local-first retrieval layer in an OpenClaw workspace.
+`workspace-local-retrieval` is a publishable, boundary-first retrieval architecture skill for OpenClaw.
 
-It is designed for users who want retrieval to be:
-- reusable
-- explainable
+It is aimed at builders who want a local-first retrieval layer that is:
 - privacy-aware
 - agent-scoped
 - maintainable over time
-- honest about runtime readiness and maturity
+- explicit about runtime readiness
+- credible in front of technical reviewers
 
-Instead of encouraging naive “index everything” patterns, the skill focuses on architectural quality:
-- personal memory and workspace retrieval are treated as separate layers
-- corpora are allowlisted explicitly
-- agent access is deny-by-default
-- retrieval callers use one stable wrapper contract
-- maintenance includes freshness checks and selective refresh patterns
-- execution is gated by prerequisite checks rather than assumption
-- maturity claims are constrained by an explicit validation contract
+The skill focuses on the parts of local retrieval that usually matter most in real systems:
+- separating personal memory from reusable workspace knowledge
+- defining allowlisted corpora instead of indexing everything
+- enforcing deny-by-default access per agent
+- using a stable search-wrapper contract for callers
+- preferring selective refresh over blind rebuilds
+- gating execution on prerequisite checks
+- tying maturity claims to an explicit validation contract
 
-The skill includes:
+What is included:
 - a workflow-driven `SKILL.md`
-- sanitized JSON starter templates
-- reference docs for privacy boundaries, agent scoping, interface contracts, maintenance patterns, runtime dependencies, validation contract, anti-overclaim policy, and preflight/install policy
-- a conservative bootstrap script that generates starter config without indexing user data automatically
+- sanitized starter templates for corpora, agent allowlists, memory boundaries, and backend config
+- reference docs for privacy boundaries, agent scoping, maintenance patterns, interface contracts, runtime dependencies, validation policy, and publish-readiness guidance
+- a conservative bootstrap script that generates starter config without auto-indexing user data
 - a runnable prerequisite check script
+- a sanitized demo corpus plus minimal SQLite FTS5 index/search/smoke-test scripts
 
 Current honest framing:
-- this repo is an architecture skill and starter kit
-- it should not be marketed as a complete retrieval product unless a real closed loop and validation suite are present and passing
+- this skill is more than a conceptual write-up
+- it includes a **fully validated minimal closed-loop demo path**
+- it is still not claiming to be a turnkey enterprise retrieval product
 
-Use this skill when you want a retrieval architecture that reflects real multi-agent operational constraints, not just a quick demo.
+Use this skill when you want retrieval architecture that looks thoughtful, explainable, and technically disciplined—not just quickly hacked together.
