@@ -112,6 +112,7 @@ If the workspace already has a retrieval system, adapt the layout instead of for
 - Read `references/example-templates.md` when you need sanitized starter JSON examples.
 - Read `references/dependencies-and-platforms.md` when the user wants concrete runtime dependencies, embedding backend choices, or cross-platform guidance.
 - Read `references/preflight-and-install-policy.md` when deciding whether the skill is runnable now, blocked, or should first produce an installation task plan.
+- Read `references/quickstart-real-workspace.md` when the user wants to move from the demo path into a real workspace setup.
 - Read `references/runtime-layout.md` when the user wants a more runnable implementation footprint.
 - Read `references/design-rationale.md` when the user needs the architectural thesis, tradeoffs, or public-facing positioning.
 - Read `references/sanitized-demo.md` when the user wants a safe walkthrough or publishable example.

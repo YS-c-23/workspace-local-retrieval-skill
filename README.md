@@ -42,6 +42,7 @@ The emphasis is not only retrieval quality. It is retrieval architecture, runtim
   - maintenance patterns
   - dependency and platform guidance
   - preflight and install policy
+  - quickstart guidance for adapting the pattern to a real workspace
   - validation contract
   - anti-overclaim guidance
   - design rationale
@@ -108,10 +109,25 @@ workspace-local-retrieval/
     check_retrieval_prereqs.py
     install_prereqs_linux.sh
     install_prereqs_mac.sh
+    install_prereqs_windows.ps1
     run_minimal_smoke_tests.py
     search_minimal_index.py
     setup_demo.sh
 ```
+
+## What works today
+
+Today this repository can help a user:
+- check local prerequisites
+- install baseline prerequisites on macOS and Linux with helper scripts
+- install baseline prerequisites on Windows via a winget-based PowerShell helper
+- run a validated minimal retrieval demo
+- bootstrap sanitized starter config for adapting the pattern to a real workspace
+
+What it does **not** claim today:
+- turnkey production retrieval for arbitrary workspaces
+- fully automated semantic retrieval setup
+- zero-judgment corpus design or policy design
 
 ## 5-minute runnable path
 
@@ -125,14 +141,19 @@ For a technically comfortable first-time user, the fastest path is:
    ```bash
    python3 scripts/check_retrieval_prereqs.py
    ```
-3. If macOS dependencies are missing, install them with:
-   ```bash
-   bash scripts/install_prereqs_mac.sh
-   ```
-   If Linux dependencies are missing, install them with:
-   ```bash
-   bash scripts/install_prereqs_linux.sh
-   ```
+3. If dependencies are missing:
+   - macOS:
+     ```bash
+     bash scripts/install_prereqs_mac.sh
+     ```
+   - Linux:
+     ```bash
+     bash scripts/install_prereqs_linux.sh
+     ```
+   - Windows (PowerShell):
+     ```powershell
+     powershell -ExecutionPolicy Bypass -File .\scripts\install_prereqs_windows.ps1
+     ```
 4. Run the minimal closed-loop demo:
    ```bash
    bash scripts/setup_demo.sh
@@ -144,6 +165,20 @@ This path validates a small local retrieval system with:
 - SQLite FTS5 indexing
 - scoped search
 - smoke-test coverage
+
+## Adapting to a real workspace
+
+After the demo path passes, the next step is to adapt the pattern to your own workspace.
+
+Use:
+- `scripts/bootstrap_workspace_retrieval.py` to generate starter config
+- `references/quickstart-real-workspace.md` for the first real workspace path
+
+The recommended approach is:
+- start with a narrow lexical baseline
+- define corpora before indexing
+- keep deny-by-default agent access
+- validate one real workflow before broadening scope
 
 ## Suggested usage
 
