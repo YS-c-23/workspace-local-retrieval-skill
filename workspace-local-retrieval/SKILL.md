@@ -17,6 +17,16 @@ Prefer this skill when the goal is **workspace knowledge retrieval**, not person
 
 ## Core workflow
 
+0. **Run a preflight gate before any retrieval work**
+   - Run `scripts/check_retrieval_prereqs.py` before bootstrap, indexing, embedding refresh, or search.
+   - Classify findings into:
+     - **required**: must exist before execution
+     - **recommended**: may proceed with warning
+     - **optional**: capability upgrade only
+   - Treat missing required prerequisites as a hard stop.
+   - Do not continue into retrieval execution when the environment is not ready.
+   - Read `references/dependencies-and-platforms.md` when deciding what is required on the current OS.
+
 1. **Decide the boundary model first**
    - Use built-in memory tools for personal continuity (`MEMORY.md`, `memory/*.md`).
    - Use this skill's retrieval pattern for workspace knowledge, docs, skills, plans, schemas, and agent-specific materials.
@@ -37,6 +47,8 @@ Prefer this skill when the goal is **workspace knowledge retrieval**, not person
 4. **Bootstrap templates safely**
    - Run `scripts/bootstrap_workspace_retrieval.py --dest <dir>` to generate sanitized starter templates.
    - The script creates template config files only. It does not read external services, call the network, or ingest private data.
+   - Read `references/runtime-layout.md` and `references/dependencies-and-platforms.md` before claiming the setup is runnable.
+   - Run `scripts/check_retrieval_prereqs.py` before wiring indexing or embedding backends.
 
 5. **Implement retrieval entrypoints**
    - Keep one stable wrapper for agent-facing search.
@@ -58,6 +70,21 @@ Prefer this skill when the goal is **workspace knowledge retrieval**, not person
      - one changed-file refresh path
    - Do not claim retrieval is ready because indexing succeeded once.
 
+8. **Handle missing prerequisites explicitly**
+   - If a required prerequisite is missing and the user has **not** authorized installation or environment changes:
+     - stop
+     - say the skill is currently unavailable
+     - list the missing prerequisites
+     - tell the user what must be installed or configured first
+   - If a required prerequisite is missing and the user **does** want the environment prepared:
+     - create a task plan first
+     - make the plan OS-specific when needed
+     - install or configure dependencies
+     - update config and documentation to reflect the chosen backend and runtime
+     - rerun `scripts/check_retrieval_prereqs.py`
+     - continue only after the required checks pass
+   - Use this rule consistently for macOS, Linux, and Windows. Do not pretend portability removes the need for explicit checks.
+
 ## Recommended file layout
 
 Use this skill as a pattern, not a rigid requirement.
@@ -68,6 +95,7 @@ retrieval/
     corpora.json
     agent_corpora.json
     agent_memory.json
+    backend.json
   scripts/
     workspace_search.mjs
     build_index.py
@@ -98,6 +126,9 @@ If the workspace already has a retrieval system, adapt the layout instead of for
 - Read `references/interface-contract.md` when building or reviewing the agent-facing search wrapper.
 - Read `references/maintenance-patterns.md` when adding status checks, selective refresh, and smoke tests.
 - Read `references/example-templates.md` when you need sanitized starter JSON examples.
+- Read `references/dependencies-and-platforms.md` when the user wants concrete runtime dependencies, embedding backend choices, or cross-platform guidance.
+- Read `references/preflight-and-install-policy.md` when deciding whether the skill is runnable now, blocked, or should first produce an installation task plan.
+- Read `references/runtime-layout.md` when the user wants a more runnable implementation footprint.
 - Read `references/design-rationale.md` when the user needs the architectural thesis, tradeoffs, or public-facing positioning.
 - Read `references/sanitized-demo.md` when the user wants a safe walkthrough or publishable example.
 - Read `references/publish-readiness-checklist.md` before packaging or publicly promoting the skill.
@@ -109,6 +140,10 @@ If the workspace already has a retrieval system, adapt the layout instead of for
 - If two agents need different trust levels, separate their corpora even if the docs overlap.
 - If retrieval results look noisy, improve corpus design before tuning ranking weights.
 - If privacy matters, treat boundary design as a first-class feature, not cleanup later.
+- Treat prerequisite checks as part of the runtime contract, not as optional setup advice.
+- No required prerequisites, no execution.
+- If installation is needed, prefer a short task plan over ad-hoc shell improvisation.
+- After installation or config changes, rerun preflight checks before claiming the skill is ready.
 
 ## Output expectations
 

@@ -2,7 +2,7 @@
 
 A local-first retrieval architecture skill for OpenClaw workspaces.
 
-This skill packages a reusable pattern for building retrieval in multi-agent environments with stronger boundary discipline, clearer agent scoping, and safer maintenance defaults.
+This skill packages a reusable pattern for building retrieval in multi-agent environments with stronger boundary discipline, clearer agent scoping, safer maintenance defaults, and a **prerequisite gate** that blocks execution until required runtime dependencies are actually ready.
 
 ## Why this exists
 
@@ -14,6 +14,7 @@ That works for quick demos, but it breaks down in longer-running workspaces. The
 - agents getting broader access than they should
 - noisy recall from over-broad indexing
 - refresh workflows that default to blind full rebuilds
+- runtime dependencies discovered too late, after execution has already started failing
 
 `workspace-local-retrieval` packages a different default.
 
@@ -24,21 +25,25 @@ That works for quick demos, but it breaks down in longer-running workspaces. The
 - **Enforce deny-by-default access per agent**
 - **Keep one stable retrieval interface for callers**
 - **Treat maintenance and selective refresh as part of the design**
+- **Gate execution on prerequisite checks**
 
-The emphasis is not only retrieval quality. It is retrieval architecture.
+The emphasis is not only retrieval quality. It is retrieval architecture and runtime discipline.
 
 ## What the skill includes
 
 - a workflow-oriented `SKILL.md`
-- sanitized starter templates for corpora, agent allowlists, and memory boundaries
+- sanitized starter templates for corpora, agent allowlists, memory boundaries, and backend config
 - reference docs for:
   - privacy and boundaries
   - agent scoping
   - interface contracts
   - maintenance patterns
+  - dependency and platform guidance
+  - preflight and install policy
   - design rationale
   - publish readiness
 - a conservative bootstrap script that generates starter config without ingesting private data automatically
+- a runnable prerequisite check script for Python / Node / SQLite / FTS5 / embedding-backend readiness
 - a sanitized demo walkthrough for public explanation and validation
 
 ## Who this is for
@@ -67,26 +72,34 @@ workspace-local-retrieval/
   SKILL.md
   references/
     agent-scoping.md
+    dependencies-and-platforms.md
     design-rationale.md
     example-templates.md
     interface-contract.md
     maintenance-patterns.md
+    preflight-and-install-policy.md
     privacy-and-boundaries.md
     publish-readiness-checklist.md
+    runtime-layout.md
     sanitized-demo.md
   scripts/
     bootstrap_workspace_retrieval.py
+    check_retrieval_prereqs.py
 ```
 
 ## Suggested usage
 
-1. Bootstrap sanitized retrieval config templates.
-2. Define explicit corpora.
-3. Define deny-by-default agent access.
-4. Keep personal memory and workspace retrieval as separate layers.
-5. Add a stable retrieval wrapper.
-6. Add freshness checks and selective refresh.
-7. Validate with a sanitized demo and smoke tests.
+1. Run the prerequisite check first.
+2. If required dependencies are missing, stop and either:
+   - report the skill as currently unavailable, or
+   - create an OS-aware install plan if environment prep is allowed.
+3. Bootstrap sanitized retrieval config templates.
+4. Define explicit corpora.
+5. Define deny-by-default agent access.
+6. Keep personal memory and workspace retrieval as separate layers.
+7. Add a stable retrieval wrapper.
+8. Add freshness checks and selective refresh.
+9. Validate with a sanitized demo and smoke tests.
 
 ## Why the public version is sanitized
 
@@ -106,7 +119,7 @@ The goal is to publish the pattern, not leak the original workspace.
 
 For ClawHub distribution, package and upload the `.skill` artifact.
 
-For GitHub distribution, publish the skill folder plus a small amount of explanatory material such as this README and release notes.
+For GitHub distribution, publish the skill folder plus a small amount of explanatory material such as this README and launch copy.
 
 ## License
 

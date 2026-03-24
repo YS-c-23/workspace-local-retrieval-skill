@@ -91,6 +91,19 @@ def agent_memory_template() -> dict:
     }
 
 
+def backend_template(workspace_root: str) -> dict:
+    return {
+        "version": 1,
+        "embeddingProvider": "ollama",
+        "embeddingModel": "nomic-embed-text",
+        "embeddingEndpoint": "http://127.0.0.1:11434/api/embeddings",
+        "sqlite": {
+            "dbPath": f"{workspace_root}/retrieval/indexes/workspace_retrieval.sqlite",
+            "requireFts5": True,
+        },
+    }
+
+
 def write_json(path: Path, payload: dict, force: bool) -> None:
     if path.exists() and not force:
         raise FileExistsError(f"Refusing to overwrite existing file without --force: {path}")
@@ -111,12 +124,14 @@ def main() -> None:
     write_json(config_dir / "corpora.json", corpora_template(args.workspace_root), args.force)
     write_json(config_dir / "agent_corpora.json", agent_corpora_template(), args.force)
     write_json(config_dir / "agent_memory.json", agent_memory_template(), args.force)
+    write_json(config_dir / "backend.json", backend_template(args.workspace_root), args.force)
 
     print(json.dumps({
         "written": [
             str(config_dir / "corpora.json"),
             str(config_dir / "agent_corpora.json"),
             str(config_dir / "agent_memory.json"),
+            str(config_dir / "backend.json"),
         ],
         "workspaceRoot": args.workspace_root,
         "note": "Templates generated. Review and customize before indexing.",
