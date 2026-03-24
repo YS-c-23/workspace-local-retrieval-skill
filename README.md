@@ -106,9 +106,44 @@ workspace-local-retrieval/
     bootstrap_workspace_retrieval.py
     build_minimal_index.py
     check_retrieval_prereqs.py
+    install_prereqs_linux.sh
+    install_prereqs_mac.sh
     run_minimal_smoke_tests.py
     search_minimal_index.py
+    setup_demo.sh
 ```
+
+## 5-minute runnable path
+
+For a technically comfortable first-time user, the fastest path is:
+
+1. Enter the skill folder:
+   ```bash
+   cd workspace-local-retrieval
+   ```
+2. Check prerequisites:
+   ```bash
+   python3 scripts/check_retrieval_prereqs.py
+   ```
+3. If macOS dependencies are missing, install them with:
+   ```bash
+   bash scripts/install_prereqs_mac.sh
+   ```
+   If Linux dependencies are missing, install them with:
+   ```bash
+   bash scripts/install_prereqs_linux.sh
+   ```
+4. Run the minimal closed-loop demo:
+   ```bash
+   bash scripts/setup_demo.sh
+   ```
+
+This path validates a small local retrieval system with:
+- prerequisite gating
+- bootstrap-ready config patterns
+- SQLite FTS5 indexing
+- scoped search
+- smoke-test coverage
 
 ## Suggested usage
 

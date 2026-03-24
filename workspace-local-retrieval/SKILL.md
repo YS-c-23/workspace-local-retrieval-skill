@@ -21,6 +21,7 @@ Prefer this skill when the goal is **workspace knowledge retrieval**, not person
 1. **Run a preflight gate before any retrieval work**
    - Run `scripts/check_retrieval_prereqs.py` before bootstrap, indexing, embedding refresh, or search.
    - Treat missing required prerequisites as a hard stop.
+   - If the user wants direct setup help, use `scripts/install_prereqs_mac.sh` on macOS or `scripts/install_prereqs_linux.sh` on Linux as a first-pass installer, then rerun preflight.
    - Read `references/dependencies-and-platforms.md` when deciding what is required on the current OS.
    - Read `references/preflight-and-install-policy.md` when deciding whether to stop, warn, or produce an installation plan.
 
@@ -39,6 +40,7 @@ Prefer this skill when the goal is **workspace knowledge retrieval**, not person
 4. **Bootstrap templates safely**
    - Run `scripts/bootstrap_workspace_retrieval.py --dest <dir>` to generate sanitized starter templates.
    - The script creates template config files only. It does not read external services, call the network, or ingest private data.
+   - For first-run validation, use `scripts/setup_demo.sh` to execute the minimal demo path before adapting the pattern to a real workspace.
    - Read `references/runtime-layout.md` before claiming the setup is runnable.
 
 5. **Implement one stable retrieval entrypoint**
