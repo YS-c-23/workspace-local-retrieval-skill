@@ -1,6 +1,6 @@
 ---
 name: workspace-local-retrieval
-description: Build a local-first retrieval architecture for an OpenClaw workspace with explicit corpus boundaries, deny-by-default agent access, separate personal-memory vs workspace-knowledge layers, stable agent-facing search interfaces, and maintenance-aware refresh workflows. Use when a user wants to: (1) add local RAG without indexing everything, (2) separate personal memory from reusable workspace retrieval, (3) define agent-scoped access to different corpora, (4) package a retrieval system as a reusable skill rather than private glue code, (5) add explainable status / refresh workflows, or (6) turn a one-off local search setup into a safer multi-agent retrieval pattern.
+description: Build a boundary-first local retrieval architecture for an OpenClaw workspace with explicit corpus boundaries, deny-by-default agent access, separate personal-memory vs workspace-knowledge layers, stable agent-facing search interfaces, and validation-aware maintenance workflows. Use when a user wants to: (1) add local RAG without indexing everything, (2) separate personal memory from reusable workspace retrieval, (3) define agent-scoped access to different corpora, (4) package a retrieval system as a reusable skill rather than private glue code, (5) add explainable status / refresh workflows, or (6) turn a one-off local search setup into a safer multi-agent retrieval pattern with explicit validation gates.
 ---
 
 # Workspace Local Retrieval
@@ -12,78 +12,58 @@ This skill exists for a common failure mode in local RAG systems: indexing grows
 - which agent should see which corpus
 - what belongs in personal memory versus workspace knowledge
 - how freshness should be maintained over time
+- what has actually been validated versus merely sketched
 
 Prefer this skill when the goal is **workspace knowledge retrieval**, not personal memory recall. Keep those layers separate.
 
 ## Core workflow
 
-0. **Run a preflight gate before any retrieval work**
+1. **Run a preflight gate before any retrieval work**
    - Run `scripts/check_retrieval_prereqs.py` before bootstrap, indexing, embedding refresh, or search.
-   - Classify findings into:
-     - **required**: must exist before execution
-     - **recommended**: may proceed with warning
-     - **optional**: capability upgrade only
    - Treat missing required prerequisites as a hard stop.
-   - Do not continue into retrieval execution when the environment is not ready.
    - Read `references/dependencies-and-platforms.md` when deciding what is required on the current OS.
+   - Read `references/preflight-and-install-policy.md` when deciding whether to stop, warn, or produce an installation plan.
 
-1. **Decide the boundary model first**
+2. **Decide the boundary model first**
    - Use built-in memory tools for personal continuity (`MEMORY.md`, `memory/*.md`).
    - Use this skill's retrieval pattern for workspace knowledge, docs, skills, plans, schemas, and agent-specific materials.
    - Do not merge personal notes into a general retrieval corpus unless the user explicitly wants that and understands the privacy tradeoff.
+   - Read `references/privacy-and-boundaries.md` before writing corpus config.
 
-2. **Design corpora before indexing**
+3. **Design corpora and agent access explicitly**
    - Split knowledge into small allowlisted corpora.
-   - Prefer domain or workspace boundaries over one giant corpus.
-   - Exclude runtime state, secrets, private notes, vector DB artifacts, build outputs, and caches.
-   - Read `references/privacy-and-boundaries.md` before writing config.
-
-3. **Define agent access explicitly**
    - Use deny-by-default agent retrieval policy.
-   - Allow each agent to see only the corpora it needs.
-   - Use separate memory-boundary rules for personal memory vs domain memory.
-   - Read `references/agent-scoping.md` when creating agent rules.
+   - Keep separate memory-boundary rules for personal memory vs domain memory.
+   - Read `references/agent-scoping.md` when mapping corpora and memory roots to agents.
 
 4. **Bootstrap templates safely**
    - Run `scripts/bootstrap_workspace_retrieval.py --dest <dir>` to generate sanitized starter templates.
    - The script creates template config files only. It does not read external services, call the network, or ingest private data.
-   - Read `references/runtime-layout.md` and `references/dependencies-and-platforms.md` before claiming the setup is runnable.
-   - Run `scripts/check_retrieval_prereqs.py` before wiring indexing or embedding backends.
+   - Read `references/runtime-layout.md` before claiming the setup is runnable.
 
-5. **Implement retrieval entrypoints**
-   - Keep one stable wrapper for agent-facing search.
-   - Make the wrapper responsible for corpus allowlist checks.
-   - Keep indexing / embeddings / scoring internals behind the wrapper.
-   - Read `references/interface-contract.md` for a recommended contract.
+5. **Implement one stable retrieval entrypoint**
+   - Keep one wrapper responsible for agent-facing search and corpus allowlist checks.
+   - Keep indexing, embeddings, and scoring internals behind the wrapper.
+   - Read `references/interface-contract.md` for the recommended search-wrapper contract.
 
-6. **Add freshness + maintenance**
+6. **Add maintenance-aware refresh behavior**
    - Track corpus fingerprints or file signatures.
    - Prefer selective refresh when only a small set of files changed.
    - Fall back to full rebuild only when needed.
    - Read `references/maintenance-patterns.md` for a production-friendly approach.
 
-7. **Validate with smoke tests**
-   - Test at least:
-     - one broad query
-     - one corpus-specific query
-     - one agent allowlist denial
-     - one changed-file refresh path
+7. **Validate before making maturity claims**
    - Do not claim retrieval is ready because indexing succeeded once.
+   - Read `references/validation-contract.md` to classify the result as `architecture-only`, `minimally runnable`, or `fully validated`.
+   - Read `references/anti-overclaim.md` before writing publish-facing or user-facing maturity claims.
 
-8. **Handle missing prerequisites explicitly**
-   - If a required prerequisite is missing and the user has **not** authorized installation or environment changes:
-     - stop
-     - say the skill is currently unavailable
-     - list the missing prerequisites
-     - tell the user what must be installed or configured first
-   - If a required prerequisite is missing and the user **does** want the environment prepared:
-     - create a task plan first
-     - make the plan OS-specific when needed
-     - install or configure dependencies
-     - update config and documentation to reflect the chosen backend and runtime
-     - rerun `scripts/check_retrieval_prereqs.py`
-     - continue only after the required checks pass
-   - Use this rule consistently for macOS, Linux, and Windows. Do not pretend portability removes the need for explicit checks.
+## Hard truth rules
+
+- No required prerequisites, no execution.
+- No real closed loop, no `end-to-end` claim.
+- No smoke-test suite, no `fully validated` claim.
+- No reproducible evidence, no strong marketing language.
+- If uncertain, downgrade the maturity label rather than stretch it.
 
 ## Recommended file layout
 
@@ -118,6 +98,7 @@ If the workspace already has a retrieval system, adapt the layout instead of for
 - explicit exclude globs
 - incremental refresh before full rebuild
 - one stable wrapper for agent-facing search
+- validation before maturity claims
 
 ## When to read references
 
@@ -131,19 +112,9 @@ If the workspace already has a retrieval system, adapt the layout instead of for
 - Read `references/runtime-layout.md` when the user wants a more runnable implementation footprint.
 - Read `references/design-rationale.md` when the user needs the architectural thesis, tradeoffs, or public-facing positioning.
 - Read `references/sanitized-demo.md` when the user wants a safe walkthrough or publishable example.
+- Read `references/validation-contract.md` when deciding what completion level has actually been achieved.
+- Read `references/anti-overclaim.md` before packaging or publicly promoting the skill.
 - Read `references/publish-readiness-checklist.md` before packaging or publicly promoting the skill.
-
-## Practical guidance
-
-- Prefer fewer, clearer corpora over many overlapping ones.
-- Avoid indexing secrets, credentials, private journals, logs, and generated artifacts.
-- If two agents need different trust levels, separate their corpora even if the docs overlap.
-- If retrieval results look noisy, improve corpus design before tuning ranking weights.
-- If privacy matters, treat boundary design as a first-class feature, not cleanup later.
-- Treat prerequisite checks as part of the runtime contract, not as optional setup advice.
-- No required prerequisites, no execution.
-- If installation is needed, prefer a short task plan over ad-hoc shell improvisation.
-- After installation or config changes, rerun preflight checks before claiming the skill is ready.
 
 ## Output expectations
 
@@ -154,4 +125,5 @@ When using this skill for a user request, produce some or all of the following d
 - search wrapper contract
 - maintenance workflow
 - smoke-test checklist
+- validation report with an honest maturity label
 - packaging-ready skill contents when the user wants distribution
