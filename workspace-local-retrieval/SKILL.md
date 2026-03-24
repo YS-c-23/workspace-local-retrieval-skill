@@ -1,5 +1,5 @@
 ---
-name: workspace-local-retrieval
+name: Agent-Scoped Local Retrieval
 description: Build boundary-first local retrieval for OpenClaw with explicit corpora, deny-by-default agent access, separate memory layers, and a validated minimal demo path.
 ---
 

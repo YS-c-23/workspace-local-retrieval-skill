@@ -2,11 +2,11 @@
 
 ## Short description
 
-Boundary-first local retrieval for OpenClaw: explicit corpora, deny-by-default agent access, and a validated minimal demo.
+Agent-scoped local retrieval for OpenClaw: explicit corpora, deny-by-default access, and a validated minimal demo.
 
 ## Medium description
 
-`workspace-local-retrieval` helps OpenClaw users build local retrieval that is scoped, explainable, and safer to maintain.
+`Agent-Scoped Local Retrieval` helps OpenClaw users build local retrieval that is scoped, explainable, and safer to maintain.
 
 It focuses on a few things that matter in real systems:
 - separate personal memory from workspace knowledge
@@ -19,7 +19,7 @@ Good fit for multi-agent workspaces, local RAG, and retrieval systems that need 
 
 ## Long description
 
-`workspace-local-retrieval` is a reusable retrieval architecture skill for OpenClaw.
+`Agent-Scoped Local Retrieval` is a reusable retrieval architecture skill for OpenClaw.
 
 What it gives you:
 - explicit corpus boundaries

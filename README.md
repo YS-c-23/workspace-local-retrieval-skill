@@ -1,4 +1,4 @@
-# workspace-local-retrieval
+# Agent-Scoped Local Retrieval
 
 A boundary-first local retrieval architecture skill for OpenClaw workspaces.
 
