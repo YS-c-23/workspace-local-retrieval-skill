@@ -1,8 +1,15 @@
 # Agent-Scoped Local Retrieval
 
-A boundary-first local retrieval architecture skill for OpenClaw workspaces.
+A boundary-first local retrieval skill for OpenClaw workspaces.
 
-This repository packages a reusable pattern for building retrieval in multi-agent environments with stronger boundary discipline, clearer agent scoping, safer maintenance defaults, a **prerequisite gate** that blocks execution until required runtime dependencies are actually ready, and explicit rules for honest maturity claims.
+This repository packages a reusable local-first retrieval pattern for multi-agent environments with:
+- explicit corpus boundaries
+- deny-by-default agent access
+- prerequisite gating before runtime execution
+- maintenance-aware refresh behavior
+- explicit maturity labels for honest validation claims
+
+It includes a **validated minimal demo path** and a **bootstrap pattern for adapting the architecture to a real OpenClaw workspace**, without claiming turnkey production retrieval for arbitrary environments.
 
 ## Why this exists
 
@@ -123,6 +130,10 @@ Today this repository can help a user:
 - install baseline prerequisites on Windows via a winget-based PowerShell helper
 - run a validated minimal retrieval demo
 - bootstrap sanitized starter config for adapting the pattern to a real workspace
+
+A safe public summary is:
+
+> This repo includes a validated minimal demo path and a bootstrap pattern for adapting the retrieval architecture to a real OpenClaw workspace.
 
 What it does **not** claim today:
 - turnkey production retrieval for arbitrary workspaces
