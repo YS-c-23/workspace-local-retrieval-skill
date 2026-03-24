@@ -1,0 +1,2 @@
+Incremental refresh is preferred over full rebuilds when only a small number of files changed.
+A maintenance-aware retrieval system should preserve explainability and avoid unnecessary rebuild cost.

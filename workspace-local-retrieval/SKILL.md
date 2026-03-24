@@ -56,6 +56,7 @@ Prefer this skill when the goal is **workspace knowledge retrieval**, not person
    - Do not claim retrieval is ready because indexing succeeded once.
    - Read `references/validation-contract.md` to classify the result as `architecture-only`, `minimally runnable`, or `fully validated`.
    - Read `references/anti-overclaim.md` before writing publish-facing or user-facing maturity claims.
+   - When the user wants proof of a runnable closed loop, read `references/minimal-e2e-demo.md` and run the demo scripts rather than describing a hypothetical future validation plan.
 
 ## Hard truth rules
 
@@ -113,6 +114,7 @@ If the workspace already has a retrieval system, adapt the layout instead of for
 - Read `references/design-rationale.md` when the user needs the architectural thesis, tradeoffs, or public-facing positioning.
 - Read `references/sanitized-demo.md` when the user wants a safe walkthrough or publishable example.
 - Read `references/validation-contract.md` when deciding what completion level has actually been achieved.
+- Read `references/minimal-e2e-demo.md` when the user wants a safe runnable proof path.
 - Read `references/anti-overclaim.md` before packaging or publicly promoting the skill.
 - Read `references/publish-readiness-checklist.md` before packaging or publicly promoting the skill.
 

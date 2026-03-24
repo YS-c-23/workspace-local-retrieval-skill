@@ -48,6 +48,7 @@ The emphasis is not only retrieval quality. It is retrieval architecture, runtim
   - publish readiness
 - a conservative bootstrap script that generates starter config without ingesting private data automatically
 - a runnable prerequisite check script for Python / Node / SQLite / FTS5 / embedding-backend readiness
+- a sanitized demo corpus plus minimal index/search/smoke-test scripts for a closed-loop proof path
 - a sanitized demo walkthrough for public explanation and validation
 
 ## Who this is for
@@ -84,6 +85,8 @@ Do not call the repo `fully validated`, `end-to-end`, `production-ready`, or `pl
 ```text
 workspace-local-retrieval/
   SKILL.md
+  assets/
+    demo-corpus/
   references/
     agent-scoping.md
     anti-overclaim.md
@@ -92,6 +95,7 @@ workspace-local-retrieval/
     example-templates.md
     interface-contract.md
     maintenance-patterns.md
+    minimal-e2e-demo.md
     preflight-and-install-policy.md
     privacy-and-boundaries.md
     publish-readiness-checklist.md
@@ -100,7 +104,10 @@ workspace-local-retrieval/
     validation-contract.md
   scripts/
     bootstrap_workspace_retrieval.py
+    build_minimal_index.py
     check_retrieval_prereqs.py
+    run_minimal_smoke_tests.py
+    search_minimal_index.py
 ```
 
 ## Suggested usage

@@ -1,0 +1,3 @@
+The specialist planning note tracks budget assumptions for the project.
+Budget discussions must remain inside the workspace-specialist corpus.
+A realistic budget includes storage, compute, and review time.
