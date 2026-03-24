@@ -123,7 +123,7 @@ For GitHub distribution, publish the skill folder plus a small amount of explana
 
 ## License
 
-Add the license you want before publishing publicly.
+MIT
 
 ## Contact / discussion
 
